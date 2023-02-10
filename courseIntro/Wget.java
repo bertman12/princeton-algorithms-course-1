@@ -17,7 +17,7 @@ public class Wget {
         String data = new In(url).readAll();
         
         try {
-            var fWriter = new FileWriter("courseIntro/data.txt");
+            var fWriter = new FileWriter("courseIntro/data.html");
             fWriter.write(data);
             fWriter.close();
         } catch (IOException e) {

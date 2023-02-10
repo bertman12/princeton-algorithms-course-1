@@ -23,7 +23,7 @@ public class RightTriangle {
         double topLeft = (3*Math.PI)/4;
         double bottomLeft = (5*Math.PI)/4;
         double bottomRight = (-Math.PI)/4;
-
+        
         inscribeLine(topLeft, bottomRight);
         inscribeLine(bottomLeft, topLeft);
         inscribeLine(bottomLeft, bottomRight);

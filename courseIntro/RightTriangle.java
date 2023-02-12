@@ -34,7 +34,7 @@ public class RightTriangle {
     }
 
     private static double getYOnCircle(double radian) {
-        return circleOriginX + Math.sin(radian)*circleRadius;
+        return circleOriginY + Math.sin(radian)*circleRadius;
     }
 
     private static void inscribeLine(double radianStart, double radianEnd) {

@@ -27,7 +27,7 @@ public class PointTestClient {
             points[i] =  new Point2D(Math.random(), Math.random());
             points[i].draw();
         }
-        
+        "a".concat(null).indexOf("null");
         /**
          * Track the smallest distance, save it. any distance shorter than that. disregard it
          * 
@@ -37,8 +37,6 @@ public class PointTestClient {
          * consider that point as part of the next region. repeat the step of finding the points with the smallest distance, store it. if the previously stored distance is larger then get rid of it.
          * 
          * If the absolute value of the difference of x^2 + y^2 is not smaller than the previous absolute value, then discard the point.
-         * 
-         * 
          * 
          */
         double currentShortestDistance = Double.MAX_VALUE;

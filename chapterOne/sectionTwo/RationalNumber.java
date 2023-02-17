@@ -7,7 +7,6 @@ import edu.princeton.cs.algs4.Vector;
  * Decimal representation must be finite or have a repeating pattern.
  */
 public class RationalNumber {
-
     private long numerator = 0;
     private long denominator = 1;
 
@@ -21,74 +20,88 @@ public class RationalNumber {
 
     public RationalNumber (long numerator, long denominator) {
         //Remove the GCF from numerator and denominators using Euclid's algorithm.
-        // System.out.println("Before GCF factor");
-        // this.numerator = numerator;
-        // this.denominator = denominator;
-        // this.print();
+        System.out.println("Before GCF factor");
+        this.numerator = numerator;
+        this.denominator = denominator;
+        this.toString();
 
         if(denominator == 0){
             throw new RuntimeException("Only non-zero integers allowed for the denominator.");
         }
 
-        //recursively divide numerator and denominator until the result is not an integer
-        //Find the factors of any integer, excluding 1 and itself.
-        //divide by 2 until you get a decimal number
-        //then diving by primes?
+        long gcf = euclid_GCF(numerator, denominator);
+        System.out.println("The GCF: " + gcf);
+        System.out.println("After GCF: ");
 
+        this.numerator = numerator/gcf;
+        this.denominator = denominator/gcf;
+        this.toString();
+
+    }
+
+    /**
+     * Before learning Euclid's algorithm
+     */
+    private long naive_GCF(long numerator, long denominator) {
         //Odd number
+        long evenFactorAccumulator = 1;
 
         //Whilst both the numerator and denominator have 2 as a factor, divide by 2
         while(numerator % 2 == 0 && denominator % 2 == 0) {
             numerator = numerator/2;
+            denominator = denominator/2;
+            evenFactorAccumulator *= 2;
         }
-        
-        //Remaining factors must be at most 1 less than half the numerator
-        //If you do find a common factor and divide, then reset temp num again to this line.
 
-        /**
-         * An odd number
-         */
-        long tempNum = -1 + (numerator - 1)/2;
+        long oddFactor = ((numerator - 1)/2) - 1;
+        // System.out.println("numerator after factoring 2:  " + numerator);
 
-        int count = 0;
-        /**
-         * First find an odd factor for the numerator
-         * If you found one, then check if the denominator has that factor as well
-         */
+        //Accommodate when the result is an odd number
+        if( oddFactor % 2 == 0) oddFactor--;
 
-        //If a common odd numbered factor is found in the numerator and denominator, then remove.
-        //Remove all odd numbered factors
-        //If temp num is 3 then there are no more factors to check for
-        // while(numerator % tempNum != 0 && denominator % tempNum != 0 && tempNum >= 3) {
-        
+        // System.out.println("Temp num initialized : " + oddFactor);
+        long oddFactorAccumulator = 1;
 
         //Can optimize by checking if numerator is greater than denominator
-        //Exhaust all options
-        while(tempNum >= 3) {
-            //The only remaining factors are prime numbers
+        while(oddFactor >= 3) {
+            //Check if it is a factor of the numerator and denominator
+            if(numerator % oddFactor == 0 && denominator % oddFactor == 0) {
+                numerator = numerator/oddFactor;
+                denominator = denominator/oddFactor;
+                // System.out.println("Found an odd factor:" + oddFactor);
+            
+                oddFactorAccumulator *= oddFactor;
 
-            //Check if safe to divide
-            if(numerator % tempNum == 0 && denominator % tempNum == 0) {
-                numerator = numerator/tempNum;
-                denominator = denominator/tempNum;
-                System.out.println("Found a factor:" + tempNum);
-                
-                //Reset temp num
-                tempNum = -1 + (numerator - 1)/2;
+                //Reset possible odd factor
+                if(numerator % 2 == 0){
+                    oddFactor = ((numerator - 2)/2) - 1;
+                }
+                else { 
+                    oddFactor = ((numerator - 1)/2) - 1;
+                }
+
+                if(oddFactor % 2 == 0) oddFactor--;
             }
-
-            //Subtract multiples of 2 to avoid any even numbers since they are no longer a factor of the numerator. 
-            tempNum = tempNum - 2*count;
-            count++;
+            else{
+                oddFactor -= 2;
+            }
         }
 
-        System.out.println("AFTER GCF factor");
-        this.numerator = numerator;
-        this.denominator = denominator;
-        this.print();
-
+        System.out.println("The GCF: " + oddFactorAccumulator*evenFactorAccumulator);
+        
+        return oddFactorAccumulator*evenFactorAccumulator;
     }
-    
+
+    /**
+     * Utilizing the remainder theorem.
+     */
+    private long euclid_GCF(long n, long d) {
+        if (n == 0)
+        return d;
+
+        return euclid_GCF(d % n, n);
+    }
+
     public static void main (String[] args ) {
 
     }
@@ -119,10 +132,16 @@ public class RationalNumber {
         return new RationalNumber(_numerator, _denominator);
     }
 
-    public void print() {
+    @Override
+    public String toString() {
         System.out.println("\n" + this.numerator);
         System.out.println("--");
         System.out.println(this.denominator + "\n");
+        return "\n" + this.numerator + "--\n" + this.denominator + "\n";
+    }
+
+    public boolean equals(RationalNumber r) {
+        return this.numerator == r.numerator && this.denominator == r.denominator;
     }
 
 }

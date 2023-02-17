@@ -7,11 +7,11 @@ public class RationalNumberTestClient {
         RationalNumber y = new RationalNumber(5, 10);
 
         testOperations(x,y);
-
     }   
-
+    
     private static void testOperations(RationalNumber x, RationalNumber y) {
-        x.print(); y.print();
+        System.out.println("\n====== Tests have begun... ======\n");
+        // x.print(); y.print();
 
         x = x.multiply(y);
         // x.print();

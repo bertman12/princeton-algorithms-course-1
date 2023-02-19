@@ -27,7 +27,7 @@ public class PointTestClient {
             points[i] =  new Point2D(Math.random(), Math.random());
             points[i].draw();
         }
-        "a".concat(null).indexOf("null");
+        
         /**
          * Track the smallest distance, save it. any distance shorter than that. disregard it
          * 
@@ -64,8 +64,7 @@ public class PointTestClient {
 
         System.out.println("Closest pair: " + closestPair[0].x() + "," + closestPair[0].y() + " - " + closestPair[1].x() + "," + closestPair[1].y());
         System.out.println("Shortest distance: " + Math.sqrt(currentShortestDistance));
-        closestPair[0].drawTo(closestPair[1]);
-
+        closestPair[0].drawTo(closestPair[1]);  
     }
 }
 

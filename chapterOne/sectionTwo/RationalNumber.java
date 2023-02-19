@@ -1,7 +1,5 @@
 package chapterOne.sectionTwo;
 
-import edu.princeton.cs.algs4.Vector;
-
 /** 
  * Must be able to be expressed as m/n where  m and n are integers and n != 0
  * Decimal representation must be finite or have a repeating pattern.
@@ -28,7 +26,7 @@ public class RationalNumber {
         if(denominator == 0){
             throw new RuntimeException("Only non-zero integers allowed for the denominator.");
         }
-
+        
         long gcf = euclid_GCF(numerator, denominator);
         System.out.println("The GCF: " + gcf);
         System.out.println("After GCF: ");
@@ -96,8 +94,7 @@ public class RationalNumber {
      * Utilizing the remainder theorem.
      */
     private long euclid_GCF(long n, long d) {
-        if (n == 0)
-        return d;
+        if (n == 0) return d;
 
         return euclid_GCF(d % n, n);
     }
